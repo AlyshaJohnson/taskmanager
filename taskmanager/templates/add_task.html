@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="green-text text-darken-4 center-align">New task</h3>
+
+<div class="row card-panel grey lighten-4">
+    <form class="col s12" method="POST" action="{{ url_for('add_category') }}">
+        <!-- task name -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa-solid fa-pen prefix green-text text-darken-3 left"></i>
+                <input id="task_name" name="task_name" minlength="3" maxlength="20" type="text" class="validate"
+                    required>
+                <label for="task_name" class="green-text text-darken-3">Task Name</label>
+            </div>
+        </div>
+        <!-- task description -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa-solid fa-pen prefix green-text text-darken-3 left"></i>
+                <textarea id="task_description" name="task_description" minlength="20" maxlength="100" type="text"
+                    class="validate materialize-textarea" required></textarea>
+                <label for="task_description" class="green-text text-darken-3">Task Description</label>
+            </div>
+        </div>
+        <div class="row">
+            <!-- is_urgent Switch -->
+            <div class="input-field switch col s6">
+                <i class="fa-solid fa-triangle-exclamation prefix green-text text-darken-3 left"></i>
+                <label>
+                    <input type="checkbox">
+                    <span class="lever"></span>
+                    Urgent
+                </label>
+            </div>
+            <!-- date due -->
+            <div class="input-field col s6">
+                <i class="fa-regular fa-calendar-days prefix green-text text-darken-3 left"></i>
+                <input id="due_date" name="due_date" type="text" class="validate datepicker" required>
+                <label for="due_date" class="green-text text-darken-3">Due date</label>
+            </div>
+        </div>
+        <!-- Category select -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fa-solid fa-arrow-pointer prefix green-text text-darken-3 left"></i>
+                <select id="category_id" name="category_id" class="validate" required>
+                    <option value="" disabled selected>Choose Category</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.category_name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="category_id" class="green-text text-darken-3">Select Category</label>
+            </div>
+        </div>
+        <!-- submit button -->
+        <div class="row">
+            <div class="col s12 center-align">
+                <button type="submit" class="btn-large green darken-3">
+                    Add Task
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
