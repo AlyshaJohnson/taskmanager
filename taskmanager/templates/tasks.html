@@ -11,4 +11,48 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col s12">
+        <ul class="collapsible">
+            {% for task in tasks|sort(attribute="due_date") %}
+            <li>
+                <div class="collapsible-header">
+                    <i class="fa-solid fa-caret-down green-text text-darken-4"></i>
+                    <strong class="green-text text-darken-4">{{ task.task_name }}</strong>
+                    {% if task.is_urgent == True %}
+                    <i class="fas fa-exclamation-circle green-text text-darken-4"></i>
+                    {% endif %}
+                </div>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="grey-text">Task Description</p>
+                            <h5 class="green-text text-darken-4">{{ task.task_description }}</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <p class="grey-text">Due Date</p>
+                            <h6 class="green-text text-darken-4">{{ task.due_date.strftime("%d %B %Y") }}</h6>
+                        </div>
+                        <div class="col s12 m6">
+                            <p class="grey-text">Category</p>
+                            <h6 class="green-text text-darken-4">{{ task.category }}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <a href="{{ url_for('edit_task', task_id=task.id) }}" class="btn grey">Edit</a>
+                            <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn red lighten-1">Delete</a>
+                            <a href="{{ url_for('delete_task', task_id=task.id) }}"
+                                class="btn green lighten-1 right">Complete</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
 {% endblock %}
